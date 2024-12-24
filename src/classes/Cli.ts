@@ -57,15 +57,20 @@ class Cli { // define Cli class
           name: 'vehicleType',
           message: 'Select a vehicle type',
           // TODO: Update the choices array to include Truck and Motorbike
-          choices: ['Car'], ['Truck'], ['Motorbike'],
+          choices: ['Car', 'Truck', 'Motorbike'],
         },
       ])
       .then((answers) => {
         if (answers.vehicleType === 'Car') {
           // create a car
-          this.createCar();
+          this.createCar(); }
+        if (answers.vehicleType === 'Truck') {
+          // create a truck
+          this.createTruck(); }
+        if (answers.vehicleType === 'Motorbike') {
+          // create a motorbike
+          this.createMotorbike();
         }
-        // TODO: add statements to create a truck or motorbike if the user selects the respective vehicle type
       });
   }
 
@@ -166,10 +171,21 @@ class Cli { // define Cli class
         },
       ])
       .then((answers) => {
-        // TODO: Use the answers object to pass the required properties to the Truck constructor
-        // TODO: push the truck to the vehicles array
-        // TODO: set the selectedVehicleVin to the vin of the truck
-        // TODO: perform actions on the truck
+        const truck = new Truck( // Create a new truck object
+          Cli.generateVin(),
+          answers.color,
+          answers.make,
+          answers.model,
+          parseInt(answers.year),
+          parseInt(answers.weight),
+          parseInt(answers.topSpeed),
+          [],
+          parseInt(answers.towingCapacity),
+        );
+
+        this.vehicles.push(truck); // Push the truck to the vehicles array
+        this.selectedVehicleVin = truck.vin; // Set the selectedVehicleVin to the vin of the truck
+        this.performActions(); // Perform actions on the truck
       });
   }
 
@@ -229,16 +245,25 @@ class Cli { // define Cli class
         },
       ])
       .then((answers) => {
-        // TODO: Use the answers object to pass the required properties to the Motorbike constructor
-        // TODO: push the motorbike to the vehicles array
-        // TODO: set the selectedVehicleVin to the vin of the motorbike
-        // TODO: perform actions on the motorbike
+        const motorbike = new Motorbike( // Create a new motorbike object
+          Cli.generateVin(),
+          answers.color,
+          answers.make,
+          answers.model,
+          parseInt(answers.year),
+          parseInt(answers.weight),
+          parseInt(answers.topSpeed),
+          [],
+        );
+        this.vehicles.push(motorbike); // Push the motorbike to the vehicles array
+        this.selectedVehicleVin = motorbike.vin; // Set the selectedVehicleVin to the vin of the motorbike
+        this.performActions(); // Perform actions on the motorbike
       });
   }
 
   // method to find a vehicle to tow
   // TODO: add a parameter to accept a truck object
-  findVehicleToTow(): void {
+  findVehicleToTow(Truck: Truck): void {
     inquirer
       .prompt([
         {
@@ -254,9 +279,14 @@ class Cli { // define Cli class
         },
       ])
       .then((answers) => {
-        // TODO: check if the selected vehicle is the truck
-        // TODO: if it is, log that the truck cannot tow itself then perform actions on the truck to allow the user to select another action
-        // TODO: if it is not, tow the selected vehicle then perform actions on the truck to allow the user to select another action
+        if (answers.vehicleToTow === Truck) {
+          console.log('The truck cannot tow itself, please choose a different action.');
+          this.performActions();
+        } else {
+          console.log('The vehicle has been towed! Please choose a new action.');
+          this.performActions();
+          return;
+        }
       });
   }
 
@@ -279,6 +309,8 @@ class Cli { // define Cli class
             'Turn left',
             'Reverse',
             'Select or create another vehicle',
+            'Tow a vehicle',
+            'Pop a wheelie!',
             'Exit',
           ],
         },
@@ -341,10 +373,33 @@ class Cli { // define Cli class
               this.vehicles[i].reverse();
             }
           }
+        } else if (answers.action === 'Tow a vehicle') {
+          let truck: Truck | undefined;
+          for (let i = 0; i < this.vehicles.length; i++) {
+            if (this.vehicles[i].vin === this.selectedVehicleVin && this.vehicles[i] instanceof Truck) {
+              truck = this.vehicles[i] as Truck;
+              return;
+            }
+          }
+          if (!truck) {
+            console.log('The selected vehicle is not a truck, please choose a different action.');
+          } else {
+            this.findVehicleToTow(truck);
+          }
+        } else if (answers.action === 'Pop a wheelie!') {
+          let motorbike: Motorbike | undefined;
+          for (let i = 0; i < this.vehicles.length; i++) {
+            if (this.vehicles[i].vin === this.selectedVehicleVin && this.vehicles[i] instanceof Motorbike) {
+              motorbike = this.vehicles[i] as Motorbike;
+              return;
+            }
+          }
+          if (!motorbike) {
+            console.log('The selected vehicle is not a motorbike, please choose a different action.');
+        } else {
+          motorbike.wheelie();
         }
-        // TODO: add statements to perform the tow action only if the selected vehicle is a truck. Call the findVehicleToTow method to find a vehicle to tow and pass the selected truck as an argument. After calling the findVehicleToTow method, you will need to return to avoid instantly calling the performActions method again since findVehicleToTow is asynchronous.
-        // TODO: add statements to perform the wheelie action only if the selected vehicle is a motorbike
-        else if (answers.action === 'Select or create another vehicle') {
+        } else if (answers.action === 'Select or create another vehicle') {
           // start the cli to return to the initial prompt if the user wants to select or create another vehicle
           this.startCli();
           return;
