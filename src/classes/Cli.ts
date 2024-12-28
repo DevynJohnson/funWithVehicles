@@ -379,7 +379,7 @@ class Cli { // define Cli class
           for (let i = 0; i < this.vehicles.length; i++) {
             if (this.vehicles[i].vin === this.selectedVehicleVin && this.vehicles[i] instanceof Truck) {
               truck = this.vehicles[i] as Truck;
-              return;
+              break;
             }
           }
           if (!truck) {
@@ -392,13 +392,15 @@ class Cli { // define Cli class
           for (let i = 0; i < this.vehicles.length; i++) {
             if (this.vehicles[i].vin === this.selectedVehicleVin && this.vehicles[i] instanceof Motorbike) {
               motorbike = this.vehicles[i] as Motorbike;
-              return;
+              break;
             }
           }
           if (!motorbike) {
             console.log('The selected vehicle is not a motorbike, please choose a different action.');
+            this.performActions();
         } else {
           motorbike.wheelie();
+          this.performActions();
         }
         } else if (answers.action === 'Select or create another vehicle') {
           // start the cli to return to the initial prompt if the user wants to select or create another vehicle
