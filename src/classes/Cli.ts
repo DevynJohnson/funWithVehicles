@@ -7,7 +7,7 @@ import Wheel from "./Wheel.js";
 
 
 class Cli { // define Cli class
-  vehicles: (Car)[] | (Truck)[] | (Motorbike)[]; // Vehicles property stores car, truck, or motorbike objects
+  vehicles: (Car | Truck | Motorbike)[]; // Vehicles property stores car, truck, or motorbike objects
   selectedVehicleVin: string | undefined; // SelectedVehicleVin property stores the VIN of the selected vehicle
   exit: boolean = false; // Exit property stores whether the user wants to exit the CLI. Default to false until user selects exit.
 
@@ -279,7 +279,7 @@ class Cli { // define Cli class
         },
       ])
       .then((answers) => {
-        if (answers.vehicleToTow === Truck) {
+        if (answers.vehicleToTow === this.selectedVehicleVin) {
           console.log('The truck cannot tow itself, please choose a different action.');
           this.performActions();
         } else {
@@ -322,6 +322,7 @@ class Cli { // define Cli class
           for (let i = 0; i < this.vehicles.length; i++) {
             if (this.vehicles[i].vin === this.selectedVehicleVin) {
               this.vehicles[i].printDetails();
+              this.performActions();
             }
           }
         } else if (answers.action === 'Start vehicle') {
