@@ -283,6 +283,7 @@ class Cli { // define Cli class
           console.log('The truck cannot tow itself, please choose a different action.');
           this.performActions();
         } else {
+          Truck.tow(answers.vehicleToTow);
           console.log('The vehicle has been towed! Please choose a new action.');
           this.performActions();
           return;
