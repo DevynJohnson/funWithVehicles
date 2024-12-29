@@ -166,6 +166,26 @@ class Cli { // define Cli class
         },
         {
           type: 'input',
+          name: 'frontWheelDiameter',
+          message: 'Enter Front Wheels Diameter',
+        },
+        {
+          type: 'input',
+          name: 'frontWheelBrand',
+          message: 'Enter Front Wheels Brand',
+        },
+        {
+          type: 'input',
+          name: 'rearWheelDiameter',
+          message: 'Enter Rear Wheels Diameter',
+        },
+        {
+          type: 'input',
+          name: 'rearWheelBrand',
+          message: 'Enter Rear Wheels Brand',
+        },
+        {
+          type: 'input',
           name: 'towingCapacity',
           message: 'Enter Towing Capacity',
         },
@@ -179,7 +199,10 @@ class Cli { // define Cli class
           parseInt(answers.year),
           parseInt(answers.weight),
           parseInt(answers.topSpeed),
-          [],
+          [
+            new Wheel(parseInt(answers.frontWheelDiameter), answers.frontWheelBrand),
+            new Wheel(parseInt(answers.rearWheelDiameter), answers.rearWheelBrand),
+          ],
           parseInt(answers.towingCapacity),
         );
 
@@ -253,7 +276,10 @@ class Cli { // define Cli class
           parseInt(answers.year),
           parseInt(answers.weight),
           parseInt(answers.topSpeed),
-          [],
+          [
+            new Wheel(parseInt(answers.frontWheelDiameter), answers.frontWheelBrand),
+            new Wheel(parseInt(answers.rearWheelDiameter), answers.rearWheelBrand),
+          ],
         );
         this.vehicles.push(motorbike); // Push the motorbike to the vehicles array
         this.selectedVehicleVin = motorbike.vin; // Set the selectedVehicleVin to the vin of the motorbike
@@ -263,31 +289,30 @@ class Cli { // define Cli class
 
   // method to find a vehicle to tow
   // TODO: add a parameter to accept a truck object
-  findVehicleToTow(Truck: Truck): void {
+  findVehicleToTow(truck: Truck): void {
     inquirer
       .prompt([
         {
           type: 'list',
           name: 'vehicleToTow',
           message: 'Select a vehicle to tow',
-          choices: this.vehicles.map((vehicle) => {
-            return {
+          choices: this.vehicles
+          .filter((vehicle) => vehicle.vin !== this.selectedVehicleVin)
+          .map(vehicle => ({
               name: `${vehicle.vin} -- ${vehicle.make} ${vehicle.model}`,
-              value: vehicle,
-            };
-          }),
-        },
+              value: vehicle.vin,
+            })),
+          },
       ])
       .then((answers) => {
-        if (answers.vehicleToTow === this.selectedVehicleVin) {
-          console.log('The truck cannot tow itself, please choose a different action.');
-          this.performActions();
+        const vehicleToTow = this.vehicles.find(vehicle => vehicle.vin === answers.vehicleToTow);
+        if (vehicleToTow) {
+          truck.tow(vehicleToTow);
+          console.log('The vehicle has been towed.');
         } else {
-          Truck.tow(answers.vehicleToTow);
-          console.log('The vehicle has been towed! Please choose a new action.');
-          this.performActions();
-          return;
+          console.log('The selected vehicle does not exist.');
         }
+          this.performActions();
       });
   }
 
