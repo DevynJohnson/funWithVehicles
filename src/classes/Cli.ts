@@ -4,6 +4,9 @@ import Truck from "./Truck.js";
 import Car from "./Car.js";
 import Motorbike from "./Motorbike.js";
 import Wheel from "./Wheel.js";
+import { EventEmitter } from "events";
+
+EventEmitter.defaultMaxListeners = 20; // Increase the default max listeners to 20 to avoid error encountered in testing
 
 
 class Cli { // define Cli class
@@ -312,9 +315,10 @@ class Cli { // define Cli class
         } else {
           console.log('The selected vehicle does not exist.');
         }
-          this.performActions();
       });
   }
+
+  
 
   // method to perform actions on a vehicle
   performActions(): void {
@@ -333,9 +337,9 @@ class Cli { // define Cli class
             'Turn right',
             'Turn left',
             'Reverse',
-            'Select or create another vehicle',
             'Tow a vehicle',
             'Pop a wheelie!',
+            'Select or create another vehicle',
             'Exit',
           ],
         },
@@ -347,7 +351,7 @@ class Cli { // define Cli class
           for (let i = 0; i < this.vehicles.length; i++) {
             if (this.vehicles[i].vin === this.selectedVehicleVin) {
               this.vehicles[i].printDetails();
-              this.performActions();
+              // this.performActions();
             }
           }
         } else if (answers.action === 'Start vehicle') {
@@ -404,7 +408,6 @@ class Cli { // define Cli class
           for (let i = 0; i < this.vehicles.length; i++) {
             if (this.vehicles[i].vin === this.selectedVehicleVin && this.vehicles[i] instanceof Truck) {
               truck = this.vehicles[i] as Truck;
-              break;
             }
           }
           if (!truck) {
@@ -417,15 +420,14 @@ class Cli { // define Cli class
           for (let i = 0; i < this.vehicles.length; i++) {
             if (this.vehicles[i].vin === this.selectedVehicleVin && this.vehicles[i] instanceof Motorbike) {
               motorbike = this.vehicles[i] as Motorbike;
-              break;
             }
           }
           if (!motorbike) {
             console.log('The selected vehicle is not a motorbike, please choose a different action.');
-            this.performActions();
+            // this.performActions();
         } else {
           motorbike.wheelie();
-          this.performActions();
+          // this.performActions();
         }
         } else if (answers.action === 'Select or create another vehicle') {
           // start the cli to return to the initial prompt if the user wants to select or create another vehicle
@@ -441,6 +443,8 @@ class Cli { // define Cli class
         }
       });
   }
+
+
 
   // method to start the cli
   startCli(): void {
@@ -464,6 +468,8 @@ class Cli { // define Cli class
       });
   }
 }
+
+
 
 // export the Cli class
 export default Cli;
