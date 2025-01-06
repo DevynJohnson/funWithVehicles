@@ -318,8 +318,6 @@ class Cli { // define Cli class
       });
   }
 
-  
-
   // method to perform actions on a vehicle
   performActions(): void {
     inquirer
