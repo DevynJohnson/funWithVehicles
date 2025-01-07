@@ -418,6 +418,7 @@ class Cli { // define Cli class
           }
           if (!truck) {
             console.log('The selected vehicle is not a truck, please choose a different action.');
+            this.performActions();
           } else {
             this.findVehicleToTow(truck);
           }
