@@ -43,8 +43,9 @@ A command line application that allows a user to create or select a car, truck o
 ## Usage
 
 <h3>Step 4: Run the Application</h3>
-<p>Use the cd command in the terminal to navigate to the cloned repository on your machine.</p>
-<p><code>cd "path to directory"</code></p>
+<p>Use the terminal to open the directory where the repository was cloned.</p>
+<code>cd "project-directory"</code>
+<p>Replace "project-directory" with the path of the folder where this repository was cloned.</p>
 <p>Then execute the application with the following command:</p>
 <p><code>npm run start</code></p>
 
