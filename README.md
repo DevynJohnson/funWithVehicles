@@ -25,7 +25,7 @@ A command line application that allows a user to create or select a car, truck o
 
 <h3>Step 1: Clone this Repository</h3>
 <p>To clone this repository to your local machine, use the following command. For more detailed instructions, follow the steps at <a href="https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository">Github Docs</a> that correspond to your operating system.</p>
-<code>git clone git@github.com:DevynJohnson/funWithVehicles.git</code>
+<code>git clone https://github.com/DevynJohnson/funWithVehicles.git</code>
 
 <h3>Step 2: Navigate to the Project Directory</h3>
 <p>Open a terminal or command prompt and use the following command to navigate to the project directory:</p>
@@ -43,8 +43,12 @@ A command line application that allows a user to create or select a car, truck o
 ## Usage
 
 <h3>Step 4: Run the Application</h3>
-Use the cd command in the terminal to navigate to the dist folder of the cloned repository. Then execute the application with the following command:
-<code>node index.js</code>
+<p>Use the cd command in the terminal to navigate to the cloned repository on your machine.</p>
+<p><code>cd "path to directory"</code></p>
+<p>Then execute the application with the following command:</p>
+<p><code>npm run start</code></p>
+
+<p>This will compile TypeScript files into JavaScript and execute the applicaion.</p>
 
 <h3>Step 5: Follow the prompts</h3>
 Follow the prompts to create a new vehicle and entering all of the requested information, or select a pre-existing vehicle from the program. After your vehicle is created or selected, a series of actions will be displayed. Use the arrow keys to navigate and the enter key to select the action you would like to perform.
@@ -59,7 +63,6 @@ Follow the prompts to create a new vehicle and entering all of the requested inf
 <code>npm -v</code></li>
 <li>Ensure all dependencies are installed by re-running
 <code>npm install</code></li>
-<li>Ensure you are attempting to run <code>node index.js</code> in the dist folder of the cloned repository.</li>
 <li>Review any error messages in the terminal for information that may help resolve the issue.</li>
 <li>Reach out to <a href="mailto:dljohnson1313@gmail.com?subject=README Generator Issue">dljohnson1313@gmail.com</a> with an explanation of the issue if you are unable to find a solution using the steps above.</li>
 
