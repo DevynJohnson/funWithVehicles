@@ -350,7 +350,7 @@ class Cli { // define Cli class
           for (let i = 0; i < this.vehicles.length; i++) {
             if (this.vehicles[i].vin === this.selectedVehicleVin) {
               this.vehicles[i].printDetails();
-              // this.performActions();
+              this.performActions();
             }
           }
         } else if (answers.action === 'Start vehicle') {
@@ -358,6 +358,7 @@ class Cli { // define Cli class
           for (let i = 0; i < this.vehicles.length; i++) {
             if (this.vehicles[i].vin === this.selectedVehicleVin) {
               this.vehicles[i].start();
+              this.performActions();
             }
           }
         } else if (answers.action === 'Accelerate 5 MPH') {
@@ -365,6 +366,7 @@ class Cli { // define Cli class
           for (let i = 0; i < this.vehicles.length; i++) {
             if (this.vehicles[i].vin === this.selectedVehicleVin) {
               this.vehicles[i].accelerate(5);
+              this.performActions();
             }
           }
         } else if (answers.action === 'Decelerate 5 MPH') {
@@ -372,6 +374,7 @@ class Cli { // define Cli class
           for (let i = 0; i < this.vehicles.length; i++) {
             if (this.vehicles[i].vin === this.selectedVehicleVin) {
               this.vehicles[i].decelerate(5);
+              this.performActions();
             }
           }
         } else if (answers.action === 'Stop vehicle') {
@@ -379,6 +382,7 @@ class Cli { // define Cli class
           for (let i = 0; i < this.vehicles.length; i++) {
             if (this.vehicles[i].vin === this.selectedVehicleVin) {
               this.vehicles[i].stop();
+              this.performActions();
             }
           }
         } else if (answers.action === 'Turn right') {
@@ -386,6 +390,7 @@ class Cli { // define Cli class
           for (let i = 0; i < this.vehicles.length; i++) {
             if (this.vehicles[i].vin === this.selectedVehicleVin) {
               this.vehicles[i].turn('right');
+              this.performActions();
             }
           }
         } else if (answers.action === 'Turn left') {
@@ -393,6 +398,7 @@ class Cli { // define Cli class
           for (let i = 0; i < this.vehicles.length; i++) {
             if (this.vehicles[i].vin === this.selectedVehicleVin) {
               this.vehicles[i].turn('left');
+              this.performActions();
             }
           }
         } else if (answers.action === 'Reverse') {
@@ -400,6 +406,7 @@ class Cli { // define Cli class
           for (let i = 0; i < this.vehicles.length; i++) {
             if (this.vehicles[i].vin === this.selectedVehicleVin) {
               this.vehicles[i].reverse();
+              this.performActions();
             }
           }
         } else if (answers.action === 'Tow a vehicle') {
@@ -423,10 +430,10 @@ class Cli { // define Cli class
           }
           if (!motorbike) {
             console.log('The selected vehicle is not a motorbike, please choose a different action.');
-            // this.performActions();
+            this.performActions();
         } else {
           motorbike.wheelie();
-          // this.performActions();
+          this.performActions();
         }
         } else if (answers.action === 'Select or create another vehicle') {
           // start the cli to return to the initial prompt if the user wants to select or create another vehicle
