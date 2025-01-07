@@ -315,6 +315,7 @@ class Cli { // define Cli class
         } else {
           console.log('The selected vehicle does not exist.');
         }
+        this.performActions();
       });
   }
 
@@ -434,10 +435,6 @@ class Cli { // define Cli class
         } else {
           // exit the cli if the user selects exit
           this.exit = true;
-        }
-        if (!this.exit) {
-          // if the user does not want to exit, perform actions on the selected vehicle
-          this.performActions();
         }
       });
   }
