@@ -68,7 +68,7 @@ Follow the prompts to create a new vehicle and entering all of the requested inf
 
 ## Credits
 
-<p>This project was created by Devyn Johnson. <a href="https://github.com/DevynJohnson">Github</a> | <a href="https://www.linkedin.com/in/devyn-johnson-a5259213b">LinkedIn</a> | <a href="https://devynjohnson.github.io/online-portfolio/">Portfolio</a>.</p>
+<p>This project was created by Devyn Johnson. <a href="https://github.com/DevynJohnson">Github</a> | <a href="https://www.linkedin.com/in/devyn-johnson-a5259213b">LinkedIn</a> | <a href="https://devynjohnsonportfolio.netlify.app/">Portfolio</a>.</p>
 
 <p>This application uses the inquirer npm package, Copyright (c) 2023 by <a href="https://github.com/SBoudrias">Simon Boudrias</a>, which is licensed under the <a href="https://opensource.org/license/MIT">MIT License</a>. It also contains code supplied by <a href="https://www.edx.org/">edX Bootcamps LLC</a>.</p>
 
